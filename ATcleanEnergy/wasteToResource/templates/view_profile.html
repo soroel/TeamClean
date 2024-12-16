@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Profile</h2>
+<p><strong>Username:</strong> {{ profile.user.username }}</p>
+<p><strong>Organization:</strong> {{ profile.organization_name }}</p>
+<p><strong>Type:</strong> {{ profile.get_user_type_display }}</p>
+<p><strong>Location:</strong> {{ profile.location }}</p>
+<a href="{% url 'edit_profile' %}" class="btn btn-secondary">Edit Profile</a>
+
+
+{% endblock %}

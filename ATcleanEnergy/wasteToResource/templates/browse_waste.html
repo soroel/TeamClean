@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Available Waste Listings</h1>
+<ul>
+    {% for waste in waste_listings %}
+        <li>
+            <strong>{{ waste.waste_type }}</strong>: {{ waste.quantity }} kg<br>
+            Description: {{ waste.description }}<br>
+            Location: {{ waste.location }}<br>
+            <!-- Button to open the modal and pass the waste info -->
+            <a href="#" 
+               type="button" 
+               class="btn btn-primary" 
+               data-bs-toggle="modal" 
+               data-bs-target="#claimModal" 
+               data-waste-id="{{ waste.id }}" 
+               data-waste-type="{{ waste.waste_type }}">
+               Claim
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<!-- Modal -->
+<div class="modal fade" id="claimModal" tabindex="-1" aria-labelledby="claimModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="claimModalLabel">Claim Waste</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form to claim the waste -->
+                <form method="POST" action="{% url 'claim_waste' 0 %}" id="claimForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_phone_number" class="form-label">Phone Number:</label>
+                        <input type="text" class="form-control" id="id_phone_number" name="phone_number" required>
+                    </div>
+                    <!-- Hidden fields to store the waste details -->
+                    <input type="hidden" id="waste_id" name="waste_id">
+                    <input type="hidden" id="waste_type" name="waste_type">
+                    <button type="submit" class="btn btn-primary">Claim Waste</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var claimModal = document.getElementById('claimModal');
+    claimModal.addEventListener('show.bs.modal', function (event) {
+        // Get the waste details from the button that triggered the modal
+        var button = event.relatedTarget; // Button that triggered the modal
+        var wasteId = button.getAttribute('data-waste-id');
+        var wasteType = button.getAttribute('data-waste-type');
+        
+        // Set the hidden fields and form action dynamically
+        var modalWasteId = claimModal.querySelector('#waste_id');
+        var modalWasteType = claimModal.querySelector('#waste_type');
+        
+        modalWasteId.value = wasteId;
+        modalWasteType.value = wasteType;
+
+        // Update form action with correct waste id
+        var formAction = '{% url "claim_waste" 0 %}'.replace('0', wasteId);
+        claimModal.querySelector('#claimForm').setAttribute('action', formAction);
+    });
+</script>
+
+{% endblock %}

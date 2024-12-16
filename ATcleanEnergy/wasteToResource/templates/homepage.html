@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste-to-Resource Platform</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="bg-success text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Turn Waste into Opportunity</h1>
+            <p class="lead">Connecting Waste Producers to Recyclers for a Sustainable Future</p>
+        </div>
+    </header>
+
+    <!-- Main Action Section -->
+    <section class="text-center my-5">
+        <div class="container">
+            <h2>Are You a Waste Producer or Recycler?</h2>
+            <p class="mb-4">Join our platform and contribute to the circular economy today!</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="{% url 'signup' %}?type=Producer" class="btn btn-primary btn-lg">Join as Producer</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'signup' %}?type=Recycler" class="btn btn-secondary btn-lg">Join as Recycler</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIY Ideas Section -->
+    <section class="diy-ideas my-5">
+        <div class="container">
+            <h2 class="text-center mb-4">DIY Ideas for Your Waste Products</h2>
+            <div class="diy-grid">
+                <div class="diy-item">
+                    <img src="{% static 'images/diy1.jpg' %}" alt="DIY Idea 1">
+                    <p class="diy-caption">Turn plastic bottles into planters!</p>
+                </div>
+                <div class="diy-item">
+                    <img src="{% static 'images/diy2.jpg' %}" alt="DIY Idea 2">
+                    <p class="diy-caption">Create compost bins from old crates.</p>
+                </div>
+                <div class="diy-item">
+                    <img src="{% static 'images/diy3.jpg' %}" alt="DIY Idea 3">
+                    <p class="diy-caption">Transform cardboard boxes into storage organizers.</p>
+                </div>
+                <div class="diy-item">
+                    <img src="{% static 'images/diy4.jpg' %}" alt="DIY Idea 4">
+                    <p class="diy-caption">Make decorative lamps from tin cans.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
+{% endblock %}
+

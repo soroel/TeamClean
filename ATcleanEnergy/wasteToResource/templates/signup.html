@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Sign Up</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <!-- Hidden Input for user_type -->
+    <input type="hidden" name="user_type" value="{{ user_type }}">
+    
+    <!-- Username Field -->
+    <div class="form-group">
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" id="id_username" class="form-control" required>
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+        <label for="id_email">Email:</label>
+        <input type="email" name="email" id="id_email" class="form-control" required>
+    </div>
+
+    <!-- Password Field -->
+    <div class="form-group">
+        <label for="id_password">Password:</label>
+        <input type="password" name="password" id="id_password" class="form-control" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary mt-3">Sign Up</button>
+</form>
+
+{% if messages %}
+    <div class="alert alert-warning" role="alert">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}
